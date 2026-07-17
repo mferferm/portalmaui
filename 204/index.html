@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:#e6e6e2;font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#111214}
+  a{color:inherit}
+  ::selection{background:#111214;color:#fff}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#e6e6e2;display:flex;justify-content:center">
+<div style="width:100%;max-width:560px;background:#fff;min-height:100vh;position:relative;box-shadow:0 0 0 1px #d3d3ce">
+
+  <!-- ============ TOP BAR ============ -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 22px 14px;background:#fff;position:sticky;top:0;z-index:10">
+    {{ brand }}
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.5px;color:#9a9c9f;text-transform:uppercase;text-align:right;line-height:1.4">Portal<br>de Projetos</div>
+  </div>
+  <!-- chamfer rule (brand motif) -->
+  <div style="display:flex;align-items:flex-start;height:16px;padding:0 22px">
+    <div style="flex:1;border-top:1.5px solid #111214"></div>
+    <svg width="34" height="16" viewBox="0 0 34 16" style="display:block;margin-top:-0.75px"><path d="M0 0.75 H10 L34 15.25" fill="none" stroke="#111214" stroke-width="1.5"/></svg>
+  </div>
+
+  <!-- ============ CARIMBO / TITLE BLOCK ============ -->
+  <div style="padding:24px 22px 22px">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#9a9c9f;text-transform:uppercase;margin-bottom:10px">{{ obra }}</div>
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:20px">
+      <div>
+        <div style="font-size:11px;font-family:'IBM Plex Mono',monospace;color:#9a9c9f;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Unidade</div>
+        <div style="font-size:54px;font-weight:700;line-height:.9;letter-spacing:-2px">{{ numero }}</div>
+        <div style="font-size:15px;color:#5c5e63;margin-top:6px">{{ nomeUnidade }}</div>
+      </div>
+      <div style="background:{{ statusBorder }};clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,0 100%)">
+        <div style="display:flex;align-items:center;gap:7px;margin:1px;padding:7px 12px;background:{{ statusBg }};clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%);white-space:nowrap">
+          <span style="width:8px;height:8px;border-radius:50%;background:{{ statusDot }};display:block"></span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.5px;color:{{ statusInk }};text-transform:uppercase">{{ status }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- metadata grid — chamfered sheet -->
+    <div style="background:#111214;clip-path:polygon(0 0,calc(100% - 15px) 0,100% 15px,100% 100%,0 100%)">
+      <div style="margin:1px;background:#fff;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)">
+        <div style="display:grid;grid-template-columns:1fr 1fr">
+          <div style="padding:13px 15px;border-right:1px solid #e4e4df;border-bottom:1px solid #e4e4df">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:#9a9c9f;text-transform:uppercase;margin-bottom:4px">Cliente</div>
+            <div style="font-size:14px;font-weight:500">{{ cliente }}</div>
+          </div>
+          <div style="padding:13px 15px;border-bottom:1px solid #e4e4df">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:#9a9c9f;text-transform:uppercase;margin-bottom:4px">Torre / Bloco</div>
+            <div style="font-size:14px;font-weight:500">{{ torre }}</div>
+          </div>
+          <div style="padding:13px 15px;border-right:1px solid #e4e4df">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:#9a9c9f;text-transform:uppercase;margin-bottom:4px">Arquiteta / Escritório</div>
+            <div style="font-size:14px;font-weight:500">{{ arqNome }}</div>
+            <div style="font-size:12px;color:#9a9c9f">{{ arqEscritorio }}</div>
+          </div>
+          <div style="padding:13px 15px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:#9a9c9f;text-transform:uppercase;margin-bottom:4px">Atualizado</div>
+            <div style="font-size:14px;font-weight:500;font-family:'IBM Plex Mono',monospace">{{ atualizadoEm }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PROJETOS / PDFs ============ -->
+  <div style="padding:0 22px 8px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase">Projetos</div>
+      <div style="flex:1;height:1.5px;background:#111214"></div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9a9c9f">{{ totalPdfs }} arquivos</div>
+    </div>
+
+    <sc-for list="{{ grupos }}" as="g" hint-placeholder-count="4">
+      <div style="margin-bottom:10px;background:#111214;clip-path:polygon(0 0,calc(100% - 13px) 0,100% 13px,100% 100%,0 100%)">
+       <div style="margin:1px;background:#fff;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%)">
+        <button onClick="{{ g.toggle }}" style="width:100%;display:flex;align-items:center;gap:11px;padding:13px 15px;background:none;border:none;cursor:pointer;text-align:left;font-family:'IBM Plex Sans',sans-serif">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:#fff;background:#111214;padding:3px 6px">{{ g.code }}</span>
+          <span style="flex:1;font-size:14px;font-weight:600">{{ g.disciplina }}</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9a9c9f">{{ g.count }}</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#9a9c9f;width:14px;text-align:center">{{ g.chevron }}</span>
+        </button>
+        <sc-if value="{{ g.open }}" hint-placeholder-val="{{ true }}">
+          <div style="border-top:1px solid #e4e4df">
+            <sc-for list="{{ g.itens }}" as="it" hint-placeholder-count="2">
+              <a href="{{ it.url }}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;padding:12px 15px;text-decoration:none;border-bottom:1px solid #f1f1ec">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;color:#9a9c9f;letter-spacing:.5px;min-width:52px">{{ it.codigo }}</span>
+                <span style="flex:1;font-size:13.5px;color:#111214">{{ it.nome }}</span>
+                <sc-if value="{{ it.hasRev }}" hint-placeholder-val="{{ true }}">
+                  <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#9a9c9f;border:1px solid #e4e4df;padding:2px 5px">{{ it.rev }}</span>
+                </sc-if>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;color:#fff;background:#111214;padding:3px 5px;letter-spacing:.5px">PDF</span>
+              </a>
+            </sc-for>
+          </div>
+        </sc-if>
+       </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <!-- ============ OBSERVAÇÕES ============ -->
+  <div style="padding:26px 22px 8px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase">Observações</div>
+      <div style="flex:1;height:1.5px;background:#111214"></div>
+    </div>
+    <sc-for list="{{ comentarios }}" as="c" hint-placeholder-count="2">
+      <div style="border-left:2px solid #111214;padding:2px 0 2px 14px;margin-bottom:16px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:3px">
+          <div style="font-size:13.5px;font-weight:600">{{ c.titulo }}</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#9a9c9f;white-space:nowrap">{{ c.data }}</div>
+        </div>
+        <div style="font-size:13.5px;line-height:1.55;color:#5c5e63">{{ c.texto }}</div>
+      </div>
+    </sc-for>
+  </div>
+
+  <!-- ============ CONTATOS ============ -->
+  <div style="padding:18px 22px 0">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase">Contatos</div>
+      <div style="flex:1;height:1.5px;background:#111214"></div>
+    </div>
+    <div style="background:#111214;clip-path:polygon(0 0,calc(100% - 13px) 0,100% 13px,100% 100%,0 100%)">
+     <div style="margin:1px;background:#fff;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%)">
+      <sc-for list="{{ contatos }}" as="ct" hint-placeholder-count="2">
+        <a href="{{ ct.href }}" style="display:flex;align-items:center;gap:12px;padding:13px 15px;text-decoration:none;border-bottom:1px solid #f1f1ec">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:#9a9c9f;text-transform:uppercase;min-width:74px">{{ ct.label }}</span>
+          <span style="flex:1;font-size:14px;font-weight:500;color:#111214">{{ ct.valor }}</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#9a9c9f">→</span>
+        </a>
+      </sc-for>
+     </div>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER (timbrado OUZ) ============ -->
+  <div style="padding:34px 22px 24px;margin-top:16px">
+    <!-- chamfer rule -->
+    <div style="display:flex;align-items:flex-start;height:16px;margin-bottom:16px">
+      <div style="flex:1;border-top:1.5px solid #111214"></div>
+      <svg width="34" height="16" viewBox="0 0 34 16" style="display:block;margin-top:-0.75px"><path d="M0 0.75 H10 L34 15.25" fill="none" stroke="#111214" stroke-width="1.5"/></svg>
+    </div>
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px">
+      <img src="../assets/ouz-logo.png" alt="OUZ" style="height:26px;width:auto;display:block">
+      <div style="text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.7;color:#5c5e63;letter-spacing:.5px">
+        <div>{{ studioEmail }}</div>
+        <div>{{ studioSite }}</div>
+      </div>
+    </div>
+    <div style="margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:#b3b4b7;letter-spacing:1px;text-transform:uppercase">{{ obra }} — Unidade {{ numero }}</div>
+  </div>
+
+</div>
+</div>
+<template id="__bundler_thumbnail"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#111214"/><g fill="none" stroke="#ffffff" stroke-width="3"><path d="M30 40 H55 L70 55"/></g><text x="50" y="70" fill="#ffffff" font-family="monospace" font-size="16" font-weight="700" text-anchor="middle" letter-spacing="2">MAUI</text></svg></template>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  // ============================================================
+  //  BLOCO DE DADOS — EDITE APENAS ESTA UNIDADE POR REPOSITÓRIO
+  // ============================================================
+  DADOS = {
+    empresa: "OUZ",
+    obra: "MAUI \u00b7 Praia Mole",
+    logoUrl: "../assets/maui-logo.png",
+    studioEmail: "CONTATO@OUZGROUP.COM.BR",
+    studioSite: "WWW.OUZ.DESIGN",
+
+    numero: "204",
+    nomeUnidade: "Apartamento 204",
+    torre: "Torre A",
+    status: "Em execu\u00e7\u00e3o",
+
+    cliente: "Fernando",
+    arqNome: "Silmara",
+    arqEscritorio: "Silmara",
+    atualizadoEm: "22/04/2026",
+
+    projetos: [
+      { disciplina: "Arquitetura", code: "ARQ", itens: [
+        { nome: "Layout", url: "projetos/MAUI_UNIDADE_204_-_A1-planta_baixa.pdf", rev: "R00" }
+      ]},
+      { disciplina: "Instala\u00e7\u00f5es", code: "HID ELE", itens: [
+        { nome: "Pontos el\u00e9tricos e hidraulicos", url: "projetos/MAUI_UNIDADE_204_-_A1-_pontos_hidr\u00e1ulica_e_el\u00e9trica.pdf", rev: "R00" }
+      ]},
+      { disciplina: "Revestimentos", code: "ARQ", itens: [
+        { nome: "Revestimentos de pisos", url: "projetos/MAUI_UNIDADE_204_-_A1-pagina\u00e7\u00e3o.pdf", rev: "R00" }
+      ]}
+    ],
+
+    comentarios: [],
+
+    contatos: [],
+  };
+  // ============================================================
+
+  state = { open: {} };
+
+  componentDidMount() {
+    const open = {};
+    (this.DADOS.projetos || []).forEach((g, i) => { open[i] = i === 0; });
+    this.setState({ open });
+  }
+
+  statusStyle(s) {
+    const map = {
+      "Em execução":          { dot:"oklch(0.72 0.15 60)",  ink:"oklch(0.45 0.10 60)",  bg:"oklch(0.97 0.025 75)", border:"oklch(0.82 0.07 68)" },
+      "Concluído":            { dot:"oklch(0.65 0.13 150)", ink:"oklch(0.42 0.09 150)", bg:"oklch(0.97 0.025 155)",border:"oklch(0.82 0.07 150)" },
+      "Aguardando aprovação": { dot:"oklch(0.65 0.14 250)", ink:"oklch(0.45 0.10 250)", bg:"oklch(0.97 0.025 250)",border:"oklch(0.82 0.07 250)" },
+      "Pausado":              { dot:"oklch(0.55 0.02 20)",  ink:"oklch(0.40 0.01 20)",  bg:"oklch(0.95 0.004 20)", border:"oklch(0.80 0.006 20)" },
+    };
+    return map[s] || map["Em execução"];
+  }
+
+  renderVals() {
+    const d = this.DADOS;
+    const open = this.state.open || {};
+    const ss = this.statusStyle(d.status);
+    const h = React.createElement;
+
+    let total = 0;
+    const grupos = (d.projetos || []).map((g, i) => {
+      const isOpen = !!open[i];
+      total += (g.itens || []).length;
+      return {
+        disciplina: g.disciplina,
+        code: g.code,
+        count: String((g.itens || []).length).padStart(2, "0"),
+        open: isOpen,
+        chevron: isOpen ? "–" : "+",
+        toggle: () => this.setState(st => ({ open: { ...st.open, [i]: !st.open[i] } })),
+        itens: (g.itens || []).map((it, j) => ({
+          codigo: g.code + "-" + String(j + 1).padStart(2, "0"),
+          nome: it.nome, url: it.url, rev: it.rev, hasRev: !!it.rev,
+        })),
+      };
+    });
+
+    const hasLogo = !!(d.logoUrl && d.logoUrl.trim());
+    const brand = hasLogo
+      ? h("img", { src: d.logoUrl, alt: d.obra, style: { height: "30px", width: "auto", display: "block" } })
+      : h("div", { style: { fontFamily: "'IBM Plex Mono',monospace", fontWeight: 600, fontSize: "18px", letterSpacing: "1px" } }, d.empresa);
+
+    return {
+      brand,
+      empresa: d.empresa, obra: d.obra,
+      studioEmail: d.studioEmail, studioSite: d.studioSite,
+      numero: d.numero, nomeUnidade: d.nomeUnidade, torre: d.torre,
+      status: d.status,
+      statusDot: ss.dot, statusInk: ss.ink, statusBg: ss.bg, statusBorder: ss.border,
+      cliente: d.cliente, arqNome: d.arqNome, arqEscritorio: d.arqEscritorio,
+      atualizadoEm: d.atualizadoEm,
+      grupos, totalPdfs: String(total).padStart(2, "0"),
+      comentarios: d.comentarios || [],
+      contatos: d.contatos || [],
+    };
+  }
+}
+</script>
+</body>
+</html>
